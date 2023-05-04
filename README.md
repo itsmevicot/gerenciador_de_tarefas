@@ -23,8 +23,6 @@
 - Finalizar uma tarefa
 
 ### Funções não implementadas
-- Dos requisitos funcionais e não funcionais, todos foram implementados.
-- De features extras, não houve tempo para implementar features como:
 1. Filtro de tarefas
 2. Conteinerização com Docker
 3. Mudar nome e senha de usuário
@@ -35,7 +33,7 @@
 ### Frameworks e bibliotecas
 - Construído com Python/Django, HTML, CSS e JavaScript 
 - Django Crispy para formulários
-- Django CKEditor para implementação do RichTextFiel
+- Django CKEditor para implementação do RichTextField
 - Bootstrap para estilização
 
 ### Requisitos necessários
