@@ -20,7 +20,8 @@ def realizar_cadastro(request):
         if form.is_valid():
             email = form.cleaned_data['email']
             senha = form.cleaned_data['senha']
-            Usuario.objects._create_user(email=email, password=senha)
+            nome = form.cleaned_data['nome']
+            Usuario.objects._create_user(email=email, password=senha, nome=nome)
             messages.success(request, "Cadastro realizado com sucesso!")
             return redirect('login')
 
@@ -150,6 +151,10 @@ def finalizar_tarefa(request, id_tarefa):
     form_adicionar_conclusao = AdicionarObservacaoForm(request.POST or None)
     if form_adicionar_conclusao.is_valid():
         with transaction.atomic():
+            observacao = form_adicionar_conclusao.save(commit=False)
+            observacao.tarefa = tarefa
+            observacao.usuario = request.user
+            observacao.save()
             tarefa.data_conclusao = datetime.now()
             tarefa.situacao = SituacaoTarefa.CONCLUIDA
             tarefa.save()
