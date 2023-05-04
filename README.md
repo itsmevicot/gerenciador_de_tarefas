@@ -1,4 +1,4 @@
-# Processo seletivo - QA
+# Gerenciador de tarefas criado para um processo seletivo
 
 ### Para rodar o projeto em ambiente Windows:
 
