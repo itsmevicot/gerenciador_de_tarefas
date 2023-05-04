@@ -1,0 +1,54 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Open Sans', sans-serif;
+}
+
+.bg-orange {
+    background-color: orange;
+}
+
+.nav-style {
+    border-bottom: 1px solid #006bb7;
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 30px;
+}
+
+.nav-style img {
+    width: 112px;
+    height: 60px;
+}
+
+.button-add-task {
+    background-color: #006bb7;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.container {
+    position: relative;
+}
+
+.container:hover .overlay {
+    height: 100%;
+}
+
+.container-observacao {
+    border-radius: 10px;
+    border-color: #1F4E79;
+    border-width: 1px;
+    border-style: solid;
+    padding: 8px;
+}

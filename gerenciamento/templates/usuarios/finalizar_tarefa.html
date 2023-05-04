@@ -1,0 +1,15 @@
+{% extends 'usuarios/base.html' %}
+{% load crispy_forms_tags crispy_forms_filters %}
+
+{% block content %}
+
+<div class="container">
+    <form method="POST" id="form-finalizar-tarefa" action="{% url 'finalizar_tarefa' tarefa.pk %}"
+          class="mt-4">
+        {% csrf_token %}
+        {% crispy form_adicionar_conclusao %}
+        <button type="submit" form="form-finalizar-tarefa" class="btn btn-primary">Salvar</button>
+        <a href="{% url 'finalizar_tarefa' tarefa.pk %}" class="btn btn-outline-secondary">Voltar</a>
+    </form>
+</div>
+{% endblock %}

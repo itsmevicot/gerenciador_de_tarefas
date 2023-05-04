@@ -1,0 +1,85 @@
+{% extends 'usuarios/base.html' %}
+{% load crispy_forms_tags crispy_forms_filters %}
+
+{% block content %}
+<div class="container">
+    <h1 class="mb-3">Detalhes da tarefa #{{tarefa.get_custom_id}}</h1>
+    <h4>{{ tarefa.titulo }}</h4>
+    <div class="ml-3">
+        <div class="row d-flex" style="gap: 4px">
+            <p><b>Responsável: </b></p>
+            <p>{{tarefa.responsavel_tarefa}}</p>
+        </div>
+    </div>
+    {% if pode_assumir_tarefa %}
+    <a href="{% url 'assumir_tarefa' tarefa.pk %}" class="btn btn-primary">Assumir tarefa</a>
+    {% endif %}
+    {% if pode_finalizar_tarefa %}
+    <a href="{% url 'finalizar_tarefa' tarefa.pk %}" class="btn btn-primary">Finalizar tarefa</a>
+    {% endif %}
+    <div class="row mt-5 ml-1">
+        <div class="col-md-3">
+            <div class="row d-flex" style="gap: 4px">
+                <p><b>Prioridade: </b></p>
+                <p>{{ tarefa.get_prioridade_display }}</p>
+            </div>
+            <div class="row d-flex" style="gap: 4px">
+                <p><b>Tipo: </b></p>
+                <p>{{ tarefa.get_tipo_display }}</p>
+            </div>
+            <div class="row d-flex" style="gap: 4px">
+                <p><b>Criação: </b></p>
+                <p>{{ tarefa.data_abertura|date:"d/m/Y" }}</p>
+            </div>
+            <div class="row d-flex" style="gap: 4px">
+                <p><b>Situação: </b></p>
+                <p>{{ tarefa.get_situacao_display }}</p>
+            </div>
+        </div>
+        <div class="col-md-9">
+            <div>
+                <p><b>Descrição: </b></p>
+                <p>{{ tarefa.descricao|safe }}</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-3"><h4><b>Observações</b></h4></div>
+
+    <div>
+        {% if pode_finalizar_tarefa %}
+        <form method="POST" id="form-adicionar-observacao" action="{% url 'adicionar_observacao' tarefa.pk %}"
+              class="mt-4">
+            {% csrf_token %}
+            {% crispy form_adicionar_observacao %}
+        </form>
+        {% if pode_adicionar_observacao %}
+        <button type="submit" form="form-adicionar-observacao" class="btn btn-primary ">Salvar</button>
+        {% endif %}
+        {% endif %}
+        <a href="{% url 'listar_tarefas' %}" class="btn btn-danger">Voltar</a>
+        <div class="row">
+        <div class="col-md-6">
+            {% for observacao in observacoes %}
+            <div class="w-100 mt-4 mb-4 container-observacao">
+                <div class="d-flex align-items-center">
+                    <div class="w-auto mr-auto">
+                        <b>{{ observacao.usuario }}</b> em {{ observacao.criado_em }}
+                    </div>
+                    {% if observacao.pk == ultima_observacao and pode_editar_observacao %}
+                    <a href="{% url 'editar_ultima_observacao' tarefa.pk %}" class="btn btn-outline-warning">
+                        Editar
+                    </a>
+                    {% endif %}
+                </div>
+                <div class="form-group">
+                    {{ observacao.observacao|safe }}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+    </div>
+
+    {% endblock %}

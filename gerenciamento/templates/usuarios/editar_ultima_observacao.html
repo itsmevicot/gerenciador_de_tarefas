@@ -1,0 +1,15 @@
+{% extends 'usuarios/base.html' %}
+{% load crispy_forms_tags crispy_forms_filters %}
+
+{% block content %}
+
+<div class="container">
+    <form method="POST" id="form-editar-observacao" action="{% url 'editar_ultima_observacao' tarefa.pk %}"
+          class="mt-4">
+        {% csrf_token %}
+        {% crispy form %}
+        <button type="submit" form="form-editar-observacao" class="btn btn-primary">Salvar</button>
+        <a href="{% url 'detalhar_tarefa' tarefa.pk %}" class="btn btn-outline-secondary">Voltar</a>
+    </form>
+</div>
+{% endblock %}

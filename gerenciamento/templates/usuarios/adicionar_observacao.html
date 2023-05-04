@@ -1,0 +1,14 @@
+{% extends 'usuarios/base.html' %}
+{% load crispy_forms_tags crispy_forms_filters %}
+
+{% block content %}
+
+<form method="POST" id="form-adicionar-observacao" action="{% url 'adicionar_observacao' tarefa.pk %}"
+      class="mt-4 mb-5">
+    {% csrf_token %}
+    {% crispy form %}
+</form>
+
+<button type="submit" form="form-adicionar-observacao" class="btn btn-primary">Adicionar observação</button>
+
+{% endblock %}

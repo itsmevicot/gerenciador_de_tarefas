@@ -1,0 +1,83 @@
+{% extends 'usuarios/base.html' %}
+{% load static %}
+{% block content %}
+
+<body>
+<div id="lista-tarefas" class="container" style="gap:24px">
+    <div class="row align-items-center justify-content-between px-3 mb-3">
+        <div class="d-flex align-items-center" style="gap:24px">
+            <h1>Lista de Tarefas</h1>
+        </div>
+        <div>
+            <a href="{% url 'adicionar_tarefa' %}">
+                <button class="button-add-task mr-2">
+                    Cadastrar Tarefa
+                </button>
+            </a>
+        </div>
+    </div>
+
+    <table class="table table-bordered">
+        <thead class="thead-light">
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Título</th>
+            <th scope="col">Tipo</th>
+            <th scope="col">Prioridade</th>
+            <th scope="col">Data de Abertura</th>
+            <th scope="col">Responsável</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for tarefa in page %}
+        <tr class="{% if tarefa in tarefas_usuario %} bg-orange {% endif %}">
+            <td><a href="{% url 'detalhar_tarefa' tarefa.pk %}">{{ tarefa.pk }}</a></td>
+            <td>{{ tarefa.titulo }}</td>
+            <td>{{ tarefa.get_tipo_display }}</td>
+            <td>{{ tarefa.get_prioridade_display }}</td>
+            <td>{{ tarefa.data_abertura|date:"d/m/Y" }}</td>
+            <td>{{ tarefa.responsavel_tarefa }}</td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="10">Não há tarefas registradas</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    {% for post in page %}
+    <div class="post">
+        <h2>{{ post.title }}</h2>
+        <p>{{ post.body }}</p>
+    </div>
+    {% endfor %}
+
+<nav class="w-100 d-flex justify-content-center">
+        <ul class="pagination">
+            {% if page.has_previous %}
+                <li class="page-item"><a class="page-link" href="?page=1">&laquo; Primeira</a></li>
+                <li class="page-item"><a class="page-link" href="?page={{ page.previous_page_number }}">Anterior</a></li>
+            {% else %}
+                <li class="page-item disabled"><a class="page-link" href="#">&laquo; Primeira</a></li>
+                <li class="page-item disabled"><a class="page-link" href="#">Anterior</a></li>
+            {% endif %}
+            <li class="page-item disabled">
+                <a class="page-link" href="#">
+                    Página {{ page.number }} de {{ page.paginator.num_pages }}
+                </a>
+            </li>
+            {% if page.has_next %}
+                <li class="page-item"><a class="page-link" href="?page={{ page.next_page_number }}">Próxima</a></li>
+                <li class="page-item"><a class="page-link" href="?page={{ page.paginator.num_pages }}">Última &raquo;</a></li>
+            {% else %}
+                <li class="page-item disabled"><a class="page-link" href="#">Próxima</a></li>
+                <li class="page-item disabled"><a class="page-link" href="#">Última &raquo;</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+</div>
+    {% endblock %}
+
+
+</body>
