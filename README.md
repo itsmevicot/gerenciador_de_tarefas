@@ -22,7 +22,7 @@
 - Assumir a responsabilidade de uma tarefa
 - Finalizar uma tarefa
 
-### Funções não implementadas
+### Funções a serem implementadas
 1. Filtro de tarefas
 2. Conteinerização com Docker
 3. Mudar nome e senha de usuário
